@@ -14,18 +14,21 @@ def ER2AFND(ER):
     automata = []
     automata.append(inicial)
     automata.append(final)
-    ER2AFNDI(ER, automata, 0, 1)
+    ER2AFNDI(ER, automata, inicial, final)
 
 
 # Funcion recursiva que construye el automata segun los simbolos utilizados
-def ER2AFNDI(ER, auto, i, j):
+# edit: ahora se trabaja sobre los estados y no sobre los indices del automata dado que los estados pueden tener
+# indices duplicado dada la construcción
+def ER2AFNDI(ER, auto, ini, fin):
     simbolos = readnext(ER)
     if simbolos[0] == '*':
-        estado1 = estado(i+1)
-        estado2 = estado(i+2)
+        estado1 = estado(ini.id + 1)
+        estado2 = estado(ini.id + 2)
+        ini.trans.append([estado1, ''])
+        estado2.trans.append([fin, ''])
+        estado2.trans.append([estado1, ''])
+        ini.trans.append([fin, ''])
         auto.append(estado1)
         auto.append(estado2)
-        auto[i].trans.append([i+1, ''])
-        auto[i+2].trans.append([j, ''])
-        auto[i+2].trans.append([i+1, ''])
-        ER2AFNDI(simbolos[1], auto, i+1, i+2)
+        ER2AFNDI(simbolos[1], auto, estado1, estado2)
