@@ -5,6 +5,7 @@ from estado import *
 def AFND2AFD(automata, alfabeto):
     # Se toma la clausura epsilon del estado inicial
     inicial = ClausuraF(automata[0], '')
+    inicial.append(automata[0])
     # Se crea un estado con nombre
     inicialAFD = estado(nombrar(inicial))
     # Lista de estados pendientes (por revisar)
@@ -14,8 +15,10 @@ def AFND2AFD(automata, alfabeto):
     AFD = []
     AFD.append(inicialAFD)
     # Mientras hayan elementos en el arreglo pendientes
+    visitados = []
     while pendientes:
         anterior = pendientes.pop()
+        visitados.append(anterior)
         for simbolo in alfabeto:
             estados = []
             for pend in anterior:
@@ -23,18 +26,20 @@ def AFND2AFD(automata, alfabeto):
                 arreglo = ClausuraF(pend, simbolo)
                 if arreglo:
                     for elem in arreglo:
-                        if elem not in estado:
+                        if elem not in estados:
                             estados.append(elem)
             if estados:
                 # Si hay elementos en la lista de estados objetivos, se agregan como transicion dependiendo de si los
                 # estados existen o no
+                if estados not in pendientes and estados != anterior and estados not in visitados:
+                    pendientes.append(estados)
                 estadoAFD = estado(nombrar(anterior))
                 estadoAFDsig = estado(nombrar(estados))
                 indice = buscar(estadoAFD, AFD)
                 indiceSig = buscar(estadoAFDsig, AFD)
                 if indiceSig >= 0 and indice >= 0:
                     tupla = [AFD[indiceSig], simbolo]
-                    if tupla not in AFD[indice]:
+                    if tupla not in AFD[indice].trans:
                         AFD[indice].trans.append(tupla)
                 elif indiceSig >= 0 and indice < 0:
                     estadoAFD.trans.append([AFD[indiceSig], simbolo])
@@ -115,23 +120,23 @@ def find(automata, estado):
 
 e = []
 for i in range(0, 11):
-    e.append(estado(i))
+    e.append(estado(str(i)))
 
 e[0].trans.append([e[1], ''])
 e[0].trans.append([e[10], ''])
-e[1].trans.append([e[3], ''])
-e[1].trans.append([e[4], ''])
-e[2].trans.append([e[1], ''])
-e[2].trans.append([e[10], ''])
-e[3].trans.append([e[7], 'a'])
-e[4].trans.append([e[9], 'a'])
-e[5].trans.append([e[2], ''])
-e[6].trans.append([e[2], ''])
-e[7].trans.append([e[5], 'b'])
-e[8].trans.append([e[6], 'a'])
-e[9].trans.append([e[8], 'b'])
+e[1].trans.append([e[2], ''])
+e[1].trans.append([e[5], ''])
+e[2].trans.append([e[3], 'a'])
+e[3].trans.append([e[4], 'b'])
+e[4].trans.append([e[9], ''])
+e[9].trans.append([e[1], ''])
+e[5].trans.append([e[6], 'a'])
+e[6].trans.append([e[7], 'b'])
+e[7].trans.append([e[8], 'a'])
+e[8].trans.append([e[9], ''])
+e[9].trans.append([e[10], ''])
 
-lista = ClausuraF(e[7], 'b')
-for elem in lista:
+afd = AFND2AFD(e, 'ab')
+for elem in afd:
     print(elem.id)
 
