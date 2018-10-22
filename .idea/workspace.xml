@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="03f11dd5-c181-47ed-b70f-16a124280b48" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ER2AFND.py" beforeDir="false" afterPath="$PROJECT_DIR$/ER2AFND.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/estado.py" beforeDir="false" afterPath="$PROJECT_DIR$/estado.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -81,7 +79,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ER2AFND.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2176">
+            <state relative-caret-position="1717">
               <caret line="128" lean-forward="true" selection-start-line="128" selection-end-line="128" />
             </state>
           </provider>
@@ -130,7 +128,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="85" />
     <option name="y" value="25" />
     <option name="width" value="1750" />
@@ -305,7 +303,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ER2AFND.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2176">
+        <state relative-caret-position="1717">
           <caret line="128" lean-forward="true" selection-start-line="128" selection-end-line="128" />
         </state>
       </provider>
