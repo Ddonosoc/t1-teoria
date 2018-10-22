@@ -8,6 +8,7 @@ def AFND2AFD(automata, alfabeto):
     inicial.append(automata[0])
     # Se crea un estado con nombre
     inicialAFD = estado(nombrar(inicial))
+    inicialAFD.final = hayFinal(inicial)
     # Lista de estados pendientes (por revisar)
     pendientes = []
     pendientes.append(inicial)
@@ -33,15 +34,19 @@ def AFND2AFD(automata, alfabeto):
                 # estados existen o no
                 if estados not in pendientes and estados != anterior and estados not in visitados:
                     pendientes.append(estados)
+                hayFinalSig = hayFinal(estados)
                 estadoAFD = estado(nombrar(anterior))
                 estadoAFDsig = estado(nombrar(estados))
                 indice = buscar(estadoAFD, AFD)
                 indiceSig = buscar(estadoAFDsig, AFD)
+                estadoAFDsig.final = hayFinalSig
                 if indiceSig >= 0 and indice >= 0:
                     tupla = [AFD[indiceSig], simbolo]
+                    AFD[indiceSig].final = hayFinalSig
                     if tupla not in AFD[indice].trans:
                         AFD[indice].trans.append(tupla)
                 elif indiceSig >= 0 and indice < 0:
+                    AFD[indiceSig].final = hayFinalSig
                     estadoAFD.trans.append([AFD[indiceSig], simbolo])
                     AFD.append(estadoAFD)
                 elif indiceSig < 0 and indice < 0:
@@ -73,6 +78,13 @@ def iguales(nombre1, nombre2):
             if nombre1[i] not in nombre2 or nombre2[i] not in nombre1:
                 return 0
         return 1
+
+
+def hayFinal(arreglo):
+    for est in arreglo:
+        if est.final == 1:
+            return 1
+    return 0
 
 
 # Funcion que busca si en un arreglo esta el estado dado, entrega el indice del arreglo en donde esta ubicado
@@ -136,7 +148,9 @@ e[7].trans.append([e[8], 'a'])
 e[8].trans.append([e[9], ''])
 e[9].trans.append([e[10], ''])
 
+e[10].final = 1
+
 afd = AFND2AFD(e, 'ab')
 for elem in afd:
-    print(elem.id)
+    print(elem.id, elem.final)
 

@@ -58,6 +58,7 @@ def readNext(ER):
 def ER2AFND(ER):
     inicial = estado(0)
     final = estado('F')
+    final.final = 1
     automata = []
     automata.append(inicial)
     automata.append(final)
