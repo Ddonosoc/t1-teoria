@@ -1,6 +1,6 @@
 from estado import *
 
-EPSILON = "#"  # Constante (vacio)
+EPSILON = ''  # Constante (vacio)
 
 # Determina si s es una expresion o parte del alfabeto
 def isAlphaValid(s):
@@ -57,6 +57,7 @@ def readNext(ER):
 # Funcion que inicializa las variables para luego llamar a la funcion "recursiva" y construir el automata
 def ER2AFND(ER):
     inicial = estado(0)
+    inicial.inicial = 1
     final = estado('F')
     final.final = 1
     automata = []
@@ -72,7 +73,7 @@ def imprimirAuto(auto):
         #print(estado.trans)
         for transiciones in estado.trans:
             c += 1
-            print(estado.id,"-",transiciones[1],"->",transiciones[0].id)
+            print(estado.id,"-",transiciones[1],"->",transiciones[0].id, "- final: ", estado.final)
     print("Tiene ",len(auto), " estados y ",c," transiciones")
 
 # Entrega el indice que identificara el siguiente estado a crear

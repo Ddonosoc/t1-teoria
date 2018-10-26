@@ -9,6 +9,7 @@ def AFND2AFD(automata, alfabeto):
     # Se crea un estado con nombre
     inicialAFD = estado(nombrar(inicial))
     inicialAFD.final = hayFinal(inicial)
+    inicialAFD.inicial = 1
     # Lista de estados pendientes (por revisar)
     pendientes = []
     pendientes.append(inicial)
